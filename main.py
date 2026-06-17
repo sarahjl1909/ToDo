@@ -8,11 +8,13 @@ class Task(BaseModel):
     done: bool = False
 
 app = FastAPI()
+banco_de_dados = []
 
-@app.get("/")
-def read_root():
-    return {"mensagem": "Olá, Mundo! Minha primeira rota com FastAPI funciona."}
+@app.get("/tasks/")
+def read_task():
+    return banco_de_dados
 
 @app.post("/tasks/")
 async def create_task(task: Task):
+    banco_de_dados.append(task)
     return task
